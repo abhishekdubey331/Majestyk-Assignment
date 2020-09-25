@@ -1,27 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/taskItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/taskItem"
     android:layout_gravity="center_horizontal"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/title_tv"
+        style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:text="@string/title"
-        android:textStyle="bold" />
+        android:paddingLeft="@dimen/normal_padding"
+        android:paddingTop="@dimen/normal_padding"
+        android:paddingRight="@dimen/normal_padding"
+        android:text="@string/title" />
 
     <TextView
         android:id="@+id/description_tv"
+        style="@style/TextAppearance.AppCompat.Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
+        android:paddingLeft="@dimen/normal_padding"
+        android:paddingRight="@dimen/normal_padding"
+        android:paddingBottom="@dimen/normal_padding"
         android:text="@string/description" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/separator"
+        android:background="@color/separator_line_color" />
 
 </LinearLayout>
