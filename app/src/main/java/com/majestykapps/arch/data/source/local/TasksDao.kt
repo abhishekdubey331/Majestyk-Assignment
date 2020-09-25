@@ -1,10 +1,6 @@
 package com.majestykapps.arch.data.source.local
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import androidx.room.Transaction
+import androidx.room.*
 import com.majestykapps.arch.domain.entity.Task
 import io.reactivex.Completable
 import io.reactivex.Maybe

@@ -5,10 +5,11 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.majestykapps.arch.R
-import kotlinx.android.synthetic.main.fragment_tasks.swipeRefresh
-import kotlinx.android.synthetic.main.fragment_tasks.text
+import com.majestykapps.arch.domain.entity.Task
+import com.majestykapps.arch.presentation.adapter.TaskListAdapter
+import kotlinx.android.synthetic.main.fragment_tasks.*
 
 class TasksFragment : Fragment(R.layout.fragment_tasks) {
 
@@ -30,23 +31,30 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
 
     private fun initViewModelObservers() {
         viewModel.apply {
-            loadingEvent.observe(viewLifecycleOwner, Observer { isRefreshing ->
+            loadingEvent.observe(viewLifecycleOwner, { isRefreshing ->
                 Log.d(TAG, "loadingEvent observed")
                 swipeRefresh.isRefreshing = isRefreshing
             })
 
-            errorEvent.observe(viewLifecycleOwner, Observer { throwable ->
+            errorEvent.observe(viewLifecycleOwner, { throwable ->
                 Log.e(TAG, "errorEvent observed", throwable)
-                text.text = throwable.localizedMessage
                 // TODO show error
             })
 
-            tasks.observe(viewLifecycleOwner, Observer { tasks ->
+            tasks.observe(viewLifecycleOwner, { tasks ->
                 Log.d(TAG, "tasks observed: $tasks")
-                text.text = tasks.toString()
-                // TODO fill RecyclerView
+                setUpRecyclerView(tasks)
             })
         }
+    }
+
+    private fun setUpRecyclerView(taskList: List<Task>) {
+        val adapter = TaskListAdapter {
+
+        }
+        task_list_recycler.adapter = adapter
+        task_list_recycler.layoutManager = LinearLayoutManager(requireContext())
+        adapter.submitList(taskList)
     }
 
     companion object {

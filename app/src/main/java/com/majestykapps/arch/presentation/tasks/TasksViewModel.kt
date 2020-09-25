@@ -4,9 +4,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.majestykapps.arch.data.common.Resource
-import com.majestykapps.arch.data.common.Resource.Failure
-import com.majestykapps.arch.data.common.Resource.Loading
-import com.majestykapps.arch.data.common.Resource.Success
+import com.majestykapps.arch.data.common.Resource.*
 import com.majestykapps.arch.domain.entity.Task
 import com.majestykapps.arch.domain.usecase.SubscribeTasksUseCase
 import com.majestykapps.arch.presentation.common.BaseViewModel

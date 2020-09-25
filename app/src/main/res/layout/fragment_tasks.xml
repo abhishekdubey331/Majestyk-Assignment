@@ -4,10 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/text"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/task_list_recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="top|start" />
+        android:layout_height="wrap_content" />
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
