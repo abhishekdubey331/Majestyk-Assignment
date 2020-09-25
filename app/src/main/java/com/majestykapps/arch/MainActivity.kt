@@ -10,10 +10,11 @@ import com.majestykapps.arch.data.source.local.TasksLocalDataSource
 import com.majestykapps.arch.data.source.local.ToDoDatabase
 import com.majestykapps.arch.presentation.common.ViewModelFactory
 import com.majestykapps.arch.presentation.taskdetail.TaskDetailFragment
-import com.majestykapps.arch.presentation.taskdetail.TaskDetailViewModel
 import com.majestykapps.arch.presentation.tasks.TasksFragment
 import com.majestykapps.arch.presentation.tasks.TasksViewModel
+import com.majestykapps.arch.util.getTaskId
 import com.majestykapps.arch.util.newFragmentInstance
+import java.net.URL
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
@@ -25,7 +26,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         tasksViewModel = initViewModel()
         initViewModelObservers()
 
-        if (savedInstanceState == null) {
+        if (intent?.data != null) {
+            val data = intent.data
+            val taskId = URL(data.toString()).getTaskId()
+            fragmentNavigation(newFragmentInstance<TaskDetailFragment>("ID" to taskId))
+        } else if (savedInstanceState == null) {
             fragmentNavigation(TasksFragment.newInstance())
         }
     }
