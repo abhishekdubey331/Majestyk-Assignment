@@ -50,7 +50,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
 
     private fun setUpRecyclerView(taskList: List<Task>) {
         val adapter = TaskListAdapter {
-
+            viewModel.launchEvent.value = it.id
         }
         task_list_recycler.adapter = adapter
         task_list_recycler.layoutManager = LinearLayoutManager(requireContext())

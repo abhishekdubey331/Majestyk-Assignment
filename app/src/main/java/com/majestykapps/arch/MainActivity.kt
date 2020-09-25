@@ -3,14 +3,17 @@ package com.majestykapps.arch
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.majestykapps.arch.data.repository.TasksRepositoryImpl
 import com.majestykapps.arch.data.source.local.TasksLocalDataSource
 import com.majestykapps.arch.data.source.local.ToDoDatabase
 import com.majestykapps.arch.presentation.common.ViewModelFactory
+import com.majestykapps.arch.presentation.taskdetail.TaskDetailFragment
+import com.majestykapps.arch.presentation.taskdetail.TaskDetailViewModel
 import com.majestykapps.arch.presentation.tasks.TasksFragment
 import com.majestykapps.arch.presentation.tasks.TasksViewModel
+import com.majestykapps.arch.util.newFragmentInstance
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
@@ -23,10 +26,14 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         initViewModelObservers()
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.mainContent, TasksFragment.newInstance())
-                .commit()
+            fragmentNavigation(TasksFragment.newInstance())
         }
+    }
+
+    private fun fragmentNavigation(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.mainContent, fragment)
+            .commit()
     }
 
     private fun initViewModel(): TasksViewModel {
@@ -39,9 +46,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private fun initViewModelObservers() {
         tasksViewModel.apply {
-            launchEvent.observe(this@MainActivity, Observer { id ->
+            launchEvent.observe(this@MainActivity, { id ->
                 Log.d(TAG, "launchTask: launching task with id = $id")
-                // TODO add task detail fragment
+                fragmentNavigation(newFragmentInstance<TaskDetailFragment>("ID" to id))
             })
         }
     }
