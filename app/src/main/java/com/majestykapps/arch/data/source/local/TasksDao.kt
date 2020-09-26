@@ -4,6 +4,7 @@ import androidx.room.*
 import com.majestykapps.arch.domain.entity.Task
 import io.reactivex.Completable
 import io.reactivex.Maybe
+import io.reactivex.Single
 
 /**
  * Data Access Object for the tasks table.
@@ -25,7 +26,7 @@ abstract class TasksDao {
      * @param taskId the task id.
      */
     @Query("SELECT * FROM Tasks WHERE id = :taskId")
-    abstract fun getTaskById(taskId: String): Maybe<Task>
+    abstract fun getTaskById(taskId: String): Single<Task>
 
     /**
      * Insert a task in the database. If the task already exists, replace it.

@@ -56,7 +56,7 @@ class TasksRepositoryImpl private constructor(
 
         val observable = if (isCacheDirty) {
             // Try remote data source with fallback to local
-            getAndCacheRemoteTasks().onErrorResumeNext(getAndCacheLocalTasks())
+            Observable.merge(getAndCacheLocalTasks(), getAndCacheRemoteTasks())
         } else {
             // Try local data source
             getAndCacheLocalTasks()
@@ -75,8 +75,7 @@ class TasksRepositoryImpl private constructor(
         }
 
         val observable = if (isCacheDirty) {
-            tasksRemoteDataSource.getTask(id)
-                .onErrorResumeNext(tasksLocalDataSource.getTask(id))
+            Observable.merge(tasksLocalDataSource.getTask(id), tasksRemoteDataSource.getTask(id))
         } else {
             tasksLocalDataSource.getTask(id)
                 .onErrorResumeNext(tasksRemoteDataSource.getTask(id))

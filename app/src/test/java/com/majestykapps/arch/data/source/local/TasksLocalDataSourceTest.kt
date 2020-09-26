@@ -11,6 +11,7 @@ import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Observer
+import io.reactivex.Single
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -54,7 +55,7 @@ class TasksLocalDataSourceTest {
     @Test
     fun `get all tasks`() {
         val tasks = mock<List<Task>>()
-        whenever(dao.getTasks()).thenReturn(Observable.just(tasks))
+        whenever(dao.getTasks()).thenReturn(Maybe.just(tasks))
 
         val observer: Observer<Resource<List<Task>>> = mock()
         dataSource.getTasks().subscribe(observer)
@@ -70,7 +71,7 @@ class TasksLocalDataSourceTest {
         val task = mock<Task> {
             on { id } doReturn taskId
         }
-        whenever(dao.getTaskById(taskId)).thenReturn(Maybe.just(task))
+        whenever(dao.getTaskById(taskId)).thenReturn(Single.just(task))
 
         val observer: Observer<Resource<Task>> = mock()
         dataSource.getTask(taskId).subscribe(observer)

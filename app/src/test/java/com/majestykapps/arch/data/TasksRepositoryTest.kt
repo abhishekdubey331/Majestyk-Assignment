@@ -131,14 +131,14 @@ class TasksRepositoryTest {
     }
 
     @Test
-    fun `remote tasks returned when cache is dirty`() {
-        whenever(localDataSource.getTasks()).thenReturn(Observable.never<Resource<List<Task>>>())
+    fun `local tasks are returned first when cache is dirty and later return remote tasks`() {
         val resource: Resource<List<Task>> = mock()
         whenever(remoteDataSource.getTasks()).thenReturn(Observable.just(resource))
+        whenever(localDataSource.getTasks()).thenReturn(Observable.just(resource))
 
         repository.loadTasks()
 
-        verify(tasksObserver, times(1)).onNext(resource)
+        verify(tasksObserver, times(2)).onNext(resource)
     }
 
     @Test
@@ -197,6 +197,7 @@ class TasksRepositoryTest {
         val data = listOf(mock<Task>())
         val resource = Resource.Success(data)
         whenever(remoteDataSource.getTasks()).thenReturn(Observable.just(resource))
+        whenever(localDataSource.getTasks()).thenReturn(Observable.just(resource))
 
         repository.loadTasks()
 
