@@ -3,7 +3,7 @@
 #### Sample GIF
 
 
-![](ezgif.com-video-to-gif.gif)
+![](sample_demo_gif.gif)
 
 
 #### Sample Deep link GIF
