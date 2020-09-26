@@ -21,8 +21,12 @@ class TasksViewModel(
     val errorEvent = SingleLiveEvent<Throwable>()
     val launchEvent = SingleLiveEvent<String>()
 
+    val searchQueryMutableLiveData = MutableLiveData<String>()
+
     private val _tasks = MutableLiveData<List<Task>>()
     val tasks: LiveData<List<Task>> get() = _tasks
+
+    val searchQuery: LiveData<String> get() = searchQueryMutableLiveData
 
     @VisibleForTesting
     val tasksObserver = object : Observer<Resource<List<Task>>> {

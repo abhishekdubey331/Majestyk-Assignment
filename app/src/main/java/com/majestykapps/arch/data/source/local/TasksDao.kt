@@ -4,7 +4,6 @@ import androidx.room.*
 import com.majestykapps.arch.domain.entity.Task
 import io.reactivex.Completable
 import io.reactivex.Maybe
-import io.reactivex.Observable
 
 /**
  * Data Access Object for the tasks table.
@@ -18,7 +17,7 @@ abstract class TasksDao {
      * Select all tasks from the tasks table.
      */
     @Query("SELECT * FROM Tasks")
-    abstract fun getTasks(): Observable<List<Task>>
+    abstract fun getTasks(): Maybe<List<Task>>
 
     /**
      * Select a task by id.

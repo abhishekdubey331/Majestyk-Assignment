@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/taskItem"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
     android:orientation="vertical">
 
@@ -14,17 +15,26 @@
         android:paddingLeft="@dimen/normal_padding"
         android:paddingTop="@dimen/normal_padding"
         android:paddingRight="@dimen/normal_padding"
-        android:text="@string/title" />
+        tools:text="@string/title" />
 
     <TextView
         android:id="@+id/description_tv"
         style="@style/TextAppearance.AppCompat.Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/title_tv"
         android:layout_marginTop="@dimen/normal_padding"
         android:paddingLeft="@dimen/normal_padding"
         android:paddingRight="@dimen/normal_padding"
         android:paddingBottom="@dimen/normal_padding"
-        android:text="@string/description" />
+        tools:text="@string/description" />
 
-</LinearLayout>
+    <include
+        android:id="@+id/empty_task_view"
+        layout="@layout/empty_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</RelativeLayout>

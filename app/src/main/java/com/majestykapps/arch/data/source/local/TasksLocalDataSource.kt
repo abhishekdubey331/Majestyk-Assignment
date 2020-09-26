@@ -12,7 +12,7 @@ class TasksLocalDataSource private constructor(
 ) : TasksDataSource {
 
     override fun getTasks(): Observable<Resource<List<Task>>> = tasksDao.getTasks()
-        .flatMap { Observable.just(Resource.Success(it)) }
+        .flatMapObservable { Observable.just(Resource.Success(it)) }
 
     override fun getTask(taskId: String): Observable<Resource<Task>> = tasksDao.getTaskById(taskId)
         .flatMapObservable { Observable.just(Resource.Success(it)) }
