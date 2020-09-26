@@ -15,6 +15,10 @@ class TaskDetailFragment : Fragment(R.layout.fragment_task_detail) {
 
     private lateinit var viewModel: TaskDetailViewModel
 
+    companion object {
+        const val TASK_ID = "TASK_ID"
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = initViewModel()
@@ -23,8 +27,9 @@ class TaskDetailFragment : Fragment(R.layout.fragment_task_detail) {
 
     private fun initViewModelObservers() {
         viewModel.apply {
-
-            getTask(arguments?.getString("ID")!!)
+            arguments?.getString(TASK_ID)?.let {
+                getTask(it)
+            }
 
             loadingEvent.observe(viewLifecycleOwner, { isRefreshing ->
 

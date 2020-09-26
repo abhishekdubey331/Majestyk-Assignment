@@ -29,14 +29,19 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         if (intent?.data != null) {
             val data = intent.data
             val taskId = URL(data.toString()).getTaskId()
-            fragmentNavigation(newFragmentInstance<TaskDetailFragment>("ID" to taskId))
+            navigateToTaskDetail(taskId)
         } else if (savedInstanceState == null) {
             fragmentNavigation(TasksFragment.newInstance())
         }
     }
 
+    private fun navigateToTaskDetail(taskId: String) {
+        fragmentNavigation(newFragmentInstance<TaskDetailFragment>(TaskDetailFragment.TASK_ID to taskId))
+    }
+
     private fun fragmentNavigation(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
+            .addToBackStack(null)
             .replace(R.id.mainContent, fragment)
             .commit()
     }
@@ -53,12 +58,20 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         tasksViewModel.apply {
             launchEvent.observe(this@MainActivity, { id ->
                 Log.d(TAG, "launchTask: launching task with id = $id")
-                fragmentNavigation(newFragmentInstance<TaskDetailFragment>("ID" to id))
+                navigateToTaskDetail(id)
             })
         }
     }
 
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount < MIN_FRAGMENT_BACK_STACK_COUNT)
+            this.finish()
+        else
+            supportFragmentManager.popBackStackImmediate()
+    }
+
     companion object {
         private const val TAG = "MainActivity"
+        private const val MIN_FRAGMENT_BACK_STACK_COUNT = 2
     }
 }

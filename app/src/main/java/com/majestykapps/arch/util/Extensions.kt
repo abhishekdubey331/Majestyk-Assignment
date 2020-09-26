@@ -10,6 +10,6 @@ inline fun <reified T : Fragment>
         arguments = bundleOf(*params)
     }
 
-fun URL.getTaskId() {
-    this.path.replace("/", "")
+fun URL.getTaskId() : String{
+   return this.path.replace("/", "")
 }
