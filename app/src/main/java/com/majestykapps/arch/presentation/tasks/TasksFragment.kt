@@ -10,6 +10,7 @@ import com.majestykapps.arch.R
 import com.majestykapps.arch.domain.entity.Task
 import com.majestykapps.arch.presentation.adapter.TaskListAdapter
 import com.majestykapps.arch.util.changeVisibility
+import com.majestykapps.arch.util.toast
 import kotlinx.android.synthetic.main.fragment_tasks.*
 import timber.log.Timber
 
@@ -41,6 +42,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
 
             errorEvent.observe(viewLifecycleOwner, { throwable ->
                 Timber.tag(TAG).d("errorEvent observed $throwable")
+                context?.toast(getString(R.string.network_connectivity_prompt))
                 showErrorWithRetry()
             })
 
